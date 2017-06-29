@@ -21,6 +21,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="UKf-OT-wRP">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="tCk-QI-Qyc"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1j1-PH-cxJ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,28 +62,20 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Jw2-z7-Ovp"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fEY-cn-Njl">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="j4h-b7-w0h"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="fEY-cn-Njl" secondAttribute="trailing" id="D58-SW-9pr"/>
-                            <constraint firstItem="fEY-cn-Njl" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="DFh-U0-sC3"/>
+                            <constraint firstItem="UKf-OT-wRP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="O95-YL-ino"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1j1-PH-cxJ" secondAttribute="bottom" id="OYJ-6Y-1Yq"/>
                             <constraint firstAttribute="trailing" secondItem="1j1-PH-cxJ" secondAttribute="trailing" id="Rvg-4j-6iJ"/>
-                            <constraint firstItem="1j1-PH-cxJ" firstAttribute="top" secondItem="fEY-cn-Njl" secondAttribute="bottom" id="WfM-DY-qge"/>
                             <constraint firstItem="1j1-PH-cxJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dp7-Fk-OcA"/>
-                            <constraint firstItem="fEY-cn-Njl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="qJQ-5J-b8e"/>
+                            <constraint firstItem="1j1-PH-cxJ" firstAttribute="top" secondItem="UKf-OT-wRP" secondAttribute="bottom" id="gkf-q4-FQN"/>
+                            <constraint firstItem="UKf-OT-wRP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pbl-cm-tgw"/>
+                            <constraint firstAttribute="trailing" secondItem="UKf-OT-wRP" secondAttribute="trailing" id="v3u-r2-5YA"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="destinationTableView" destination="1j1-PH-cxJ" id="CkU-9a-VYg"/>
-                        <outlet property="searchContainerView" destination="fEY-cn-Njl" id="ORa-1e-RXf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
