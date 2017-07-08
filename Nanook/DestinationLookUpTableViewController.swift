@@ -77,11 +77,13 @@ extension DestinationLookUpTableViewController: UISearchBarDelegate {
         destinations.removeAll()
         
         // TODO: Add delay to not overload API
-        rome2RioClient.getPlacesFor(searchText) { (places, error) in
-            
-            self.destinations.append(contentsOf: places!)
-            DispatchQueue.main.async {
-                self.destinationTableView.reloadData()
+        if searchText.characters.count >= 2 {
+            rome2RioClient.getPlacesFor(searchText) { (places, error) in
+                
+                self.destinations.append(contentsOf: places!)
+                DispatchQueue.main.async {
+                    self.destinationTableView.reloadData()
+                }
             }
         }
     }

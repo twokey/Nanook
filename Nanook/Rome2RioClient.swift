@@ -65,7 +65,6 @@ class Rome2RioClient: NSObject {
     
     // MARK: Helpers
     
-    
     // Given raw data return JSON object
     private func convert(_ data: Data, withCompletionForParseData: (_ parsedResult: AnyObject?, _ error: NSError?) -> Void) {
         

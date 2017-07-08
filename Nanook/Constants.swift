@@ -18,78 +18,243 @@ struct Constants {
     }
     
     struct Rome2RioMethods {
-        static let Autocomplete = "Autocomplete"
-        static let Geocode = "Geocode"
-        static let Search = "Search"
+        static let autocomplete = "Autocomplete"
+        static let geocode = "Geocode"
+        static let search = "Search"
     }
     
     struct Rome2RioAutocompleteParameters {
-        static let Key = "key"
-        static let Query = "query"
-        static let CountryCode = "countryCode"
-        static let LanguageCode = "languageCode"
+        static let key = "key"
+        static let query = "query"
+        static let countryCode = "countryCode"
+        static let languageCode = "languageCode"
     }
     
     struct Rome2RioAutocompleteResponse {
-        static let Query = "query"
-        static let CountryCode = "countryCode"
-        static let LanguageCode = "languageCode"
-        static let Places = "places"
+        static let query = "query"
+        static let countryCode = "countryCode"
+        static let languageCode = "languageCode"
+        static let places = "places"
     }
     
+    struct Rome2RioSearchParameters {
+        static let key = "key"
+        static let oName = "oName"
+        static let dName = "dName"
+        static let oPos = "oPos"
+        static let dPos = "dPos"
+        static let oKind = "oKind"
+        static let dKind = "dKind"
+        static let currencyCode = "currencyCode"
+        static let languageCode = "languageCode"
+        static let data = "data"
+        static let noAir = "noAir"
+        static let noAirLeg = "noAirLeg"
+        static let noRail = "noRail"
+        static let noBus = "noBus"
+        static let noFerry = "noFerry"
+        static let noCar = "noCar"
+        static let noBikeshare = "noBikeshare"
+        static let noRideshare = "noRideshare"
+        static let noTowncar = "noTowncar"
+        static let noCommuter = "noCommuter"
+        static let noSpecial = "noSpecial"
+        static let noMinorStart = "noMinorStart"
+        static let noMinorEnd = "noMinorEnd"
+        static let noPath = "noPath"
+        static let noPrice = "noPrice"
+        static let noStop = "noStop"
+    }
+    
+    struct Rome2RioSearchResponse {
+        static let elapsedTime = "elapsedTime"
+        static let currencyCode = "currencyCode"
+        static let languageCode = "languageCode"
+        static let data = "data"
+        static let places = "places"
+        static let airlines = "airlines"
+        static let aircrafts = "aircrafts"
+        static let agencies = "agencies"
+        static let vehicles = "vehicles"
+        static let routes = "routes"
+    }
+    
+    struct Airline {
+        static let code = "code"
+        static let name = "name"
+        static let url = "url"
+        static let icon = "icon"
+    }
+    
+    struct Aircraft {
+        static let code = "code"
+        static let manufacturer = "manufacturer"
+        static let model = "model"
+    }
+    
+    struct Agency {
+        static let name = "name"
+        static let url = "url"
+        static let phone = "phone"
+        static let icon = "icon"
+    }
+    
+    struct Vehicle {
+        static let name = "name"
+        static let kind = "kind"
+    }
+    
+    struct Route {
+        static let name = "name"
+        static let depPlace = "depPlace"
+        static let arrPlace = "arrPlace"
+        static let distance = "distance"
+        static let totalDuration = "totalDuration"
+        static let totalTransitDuration = "totalTransitDuration"
+        static let totalTransferDuration = "totalTransferDuration"
+        static let indicativePrices = "indicativePrices"
+        static let segments = "segments"
+        static let alternatives = "alternatives"
+    }
+    
+    struct Segment {
+        static let segmentKind = "segmentKind"
+        static let depPlace = "depPlace"
+        static let arrPlace = "arrPlace"
+        static let vehicle = "vehicle"
+        static let distance = "distance"
+        static let transitDuration = "transitDuration"
+        static let transferDuration = "transferDuration"
+        static let indicativePrices = "indicativePrices"
+    }
+    
+    struct SurfaceSegment {
+        static let segmentKind = "surface"
+        static let depPlace = "depPlace"
+        static let arrPlace = "arrPlace"
+        static let vehicle = "vehicle"
+        static let distance = "distance"
+        static let transitDuration = "transitDuration"
+        static let transferDuration = "transferDuration"
+        static let path = "path"
+        static let indicativePrices = "indicativePrices"
+        static let stops = "stops"
+        static let agencies = "agencies"
+    }
+    
+    struct AirSegment {
+        static let segmentKind = "air"
+        static let depPlace = "depPlace"
+        static let arrPlace = "arrPlace"
+        static let vehicle = "vehicle"
+        static let distance = "distance"
+        static let transitDuration = "transitDuration"
+        static let transferDuration = "transferDuration"
+        static let indicativePrices = "indicativePrices"
+        static let outbound = "outbound"
+        static let returnSegment = "return"
+    }
+    
+    struct Alternative {
+        static let firstSegment = "firstSegment"
+        static let lastSegment = "lastSegment"
+        static let route = "route"
+    }
+    
+    struct SurfaceStop {
+        static let place = "place"
+        static let transitDuration = "transitDuration"
+        static let stopDuration = "stopDuration"
+    }
+    
+    struct SurfaceAgency {
+        static let agency = "agency"
+        static let frequency = "frequency"
+        static let duration = "duration"
+        static let operatingDays = "operatingDays"
+        static let lineNames = "lineNames"
+        static let lineCodes = "lineCodes"
+        static let links = "links"
+    }
+    
+    struct SurfaceLineName {
+        static let name = "name"
+    }
+    
+    struct SurfaceLineCode {
+        static let code = "code"
+    }
+    
+    struct AirLeg {
+        static let operatingDays = "operatingDays"
+        static let indicativePrices = "indicativePrices"
+        static let hops = "hops"
+    }
+    
+    struct AirHop {
+        static let depPlace = "depPlace"
+        static let arrPlace = "arrPlace"
+        static let depTerminal = "depTerminal"
+        static let arrTerminal = "arrTerminal"
+        static let depTime = "depTime"
+        static let arrTime = "arrTime"
+        static let flight = "flight"
+        static let duration = "duration"
+        static let airline = "airline"
+        static let operatingAirline = "operatingAirline"
+        static let aircraft = "aircraft"
+        static let dayChange = "dayChange"
+        static let layoverDuration = "layoverDuration"
+        static let layoverDayChange = "layoverDayChange"
+        static let codeshares = "codeshares"
+    }
+    
+    struct AirCodeshare {
+        static let airline = "airline"
+        static let flight = "flight"
+    }
+    
+    struct ExternalLink {
+        static let text = "text"
+        static let url = "url"
+        static let displayUrl = "displayUrl"
+        static let moustacheUrl = "moustacheUrl"
+    }
+    
+    struct IndicativePrice {
+        static let name = "name"
+        static let price = "price"
+        static let priceLow = "priceLow"
+        static let priceHigh = "priceHigh"
+        static let currency = "currency"
+        static let nativePrice = "nativePrice"
+        static let nativePriceLow = "nativePriceLow"
+        static let nativePriceHigh = "nativePriceHigh"
+        static let nativeCurrency = "nativeCurrency"
+    }
+    
+    struct Icon{
+        static let Name = "Name"
+        static let url = "url"
+        static let x = "x"
+        static let y = "y"
+        static let w = "w"
+        static let h = "h"
+    }
+        
     struct Rome2RioPlace {
-        static let Kind = "kind"
-        static let ShortName = "shortName"
-        static let LongName = "longName"
-        static let CanonicalName = "canonicalName"
-        static let Code = "code"
-        static let Latitude = "lat"
-        static let Longitude = "lng"
-        static let Radius = "rad"
-        static let RegionName = "regionName"
-        static let RegionCode = "regionCode"
-        static let CountryName = "countryName"
-        static let CountryCode = "countryCode"
+        static let kind = "kind"
+        static let shortName = "shortName"
+        static let longName = "longName"
+        static let canonicalName = "canonicalName"
+        static let code = "code"
+        static let latitude = "lat"
+        static let longitude = "lng"
+        static let radius = "rad"
+        static let regionName = "regionName"
+        static let regionCode = "regionCode"
+        static let countryName = "countryName"
+        static let countryCode = "countryCode"
+        static let timeZone = "timeZone"
     }
 }
-    
-
-//        struct FlickrParameterKeys {
-//            static let Method = "method"
-//            static let APIKey = "api_key"
-//            static let GalleryID = "gallery_id"
-//            static let Extras = "extras"
-//            static let Format = "format"
-//            static let NoJSONCallback = "nojsoncallback"
-//            static let SafeSearch = "safe_search"
-//            static let Text = "text"
-//            static let BoundingBox = "bbox"
-//            static let Page = "page"
-//            static let PerPage = "per_page"
-//        }
-//        
-//        struct FlickrParameterValues {
-//            static let SearchMethod = "flickr.photos.search"
-//            static let APIKey = "787b8a0c4f1436d4599a7be8c3b17c2b"
-//            static let ResponseFormat = "json"
-//            static let DisableJSONCallback = "1" /* 1 means "yes" */
-//            static let GalleryPhotosMethod = "flickr.galleries.getPhotos"
-//            static let GalleryID = "5704-72157622566655097"
-//            static let MediumURL = "url_m"
-//            static let ResultsPerPage = "20"
-//            static let UseSafeSearch = "1"
-//        }
-//        
-//        struct FlickrResponseKeys {
-//            static let Status = "stat"
-//            static let Photos = "photos"
-//            static let Photo = "photo"
-//            static let Title = "title"
-//            static let MediumURL = "url_m"
-//            static let Pages = "pages"
-//            static let Total = "total"
-//        }
-//        
-//        struct FlickrResponseValues {
-//            static let OKStatus = "ok"
-//        }
