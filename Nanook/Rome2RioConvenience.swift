@@ -76,7 +76,7 @@ extension Rome2RioClient {
             methodParameters[key] = options[key]
         }
         
-        print("Parameters: \(methodParameters)")
+//        print("Parameters: \(methodParameters)")
         
         // Build the URL
         let url = rome2RioURLFromParameters(methodParameters, withPathExtension: method)

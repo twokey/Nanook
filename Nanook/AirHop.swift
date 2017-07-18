@@ -20,12 +20,12 @@ struct AirHop {
     let depTime: String // 24-hour local time - hh:mm
     let arrTime: String // 24-hour local time - hh:mm
     let flight: String
-    let duration: Float
+    let duration: Double
     let airline: Int
     let operatingAirline: Int?
     let aircraft: String?
     let dayChange: Int?
-    let layoverDuration: Float?
+    let layoverDuration: Double?
     let layoverDayChange: Int?
     let codeshares: [AirCodeshare]?
 
@@ -40,12 +40,12 @@ struct AirHop {
         self.depTime = airHop[Constants.AirHop.depTime] as! String
         self.arrTime = airHop[Constants.AirHop.arrTime] as! String
         self.flight = airHop[Constants.AirHop.flight] as! String
-        self.duration = airHop[Constants.AirHop.duration] as! Float
+        self.duration = airHop[Constants.AirHop.duration] as! Double
         self.airline = airHop[Constants.AirHop.airline] as! Int
         self.operatingAirline = airHop[Constants.AirHop.operatingAirline] as? Int
         self.aircraft = airHop[Constants.AirHop.aircraft] as? String
         self.dayChange = airHop[Constants.AirHop.dayChange] as? Int
-        self.layoverDuration = airHop[Constants.AirHop.layoverDuration] as? Float
+        self.layoverDuration = airHop[Constants.AirHop.layoverDuration] as? Double
         self.layoverDayChange = airHop[Constants.AirHop.layoverDayChange] as? Int
         
         // Convert array of dictionaries of air codeshares to array of object of the same type
@@ -59,7 +59,27 @@ struct AirHop {
         } else {
             self.codeshares = nil
         }
-
-//        self.codeshares = airHop[Constants.AirHop.codeshares] as? [AirCodeshare]
+    }
+        
+    // Return total leg duration as a String
+    func durationString() -> String {
+        let duration: TimeInterval = self.duration * 60.0
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .abbreviated
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.zeroFormattingBehavior = [.pad]
+        return formatter.string(from: duration)!
+    }
+    
+    func layoverDurationString() -> String {
+        var duration: TimeInterval = 0
+        if let layoverDuration = self.layoverDuration {
+            duration = layoverDuration * 60
+        }
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .abbreviated
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.zeroFormattingBehavior = [.pad]
+        return formatter.string(from: duration)!
     }
 }

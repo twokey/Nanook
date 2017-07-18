@@ -13,13 +13,13 @@ struct IndicativePrice {
     
     // MARK: Properties
     let name: String?
-    let price: Float
-    let priceLow: Float?
-    let priceHigh: Float?
+    let price: Double
+    let priceLow: Double?
+    let priceHigh: Double?
     let currency: String
-    let nativePrice: Float?
-    let nativePriceLow: Float?
-    let nativePriceHigh: Float?
+    let nativePrice: Double?
+    let nativePriceLow: Double?
+    let nativePriceHigh: Double?
     let nativeCurrency: String?
 
 
@@ -27,13 +27,13 @@ struct IndicativePrice {
 
     init(indicativePrice: [String:AnyObject]) {
         self.name = indicativePrice[Constants.IndicativePrice.name] as? String
-        self.price = indicativePrice[Constants.IndicativePrice.price] as! Float
-        self.priceLow = indicativePrice[Constants.IndicativePrice.priceLow] as? Float
-        self.priceHigh = indicativePrice[Constants.IndicativePrice.priceHigh] as? Float
+        self.price = indicativePrice[Constants.IndicativePrice.price] as! Double
+        self.priceLow = indicativePrice[Constants.IndicativePrice.priceLow] as? Double
+        self.priceHigh = indicativePrice[Constants.IndicativePrice.priceHigh] as? Double
         self.currency = indicativePrice[Constants.IndicativePrice.currency] as! String
-        self.nativePrice = indicativePrice[Constants.IndicativePrice.nativePrice] as? Float
-        self.nativePriceLow = indicativePrice[Constants.IndicativePrice.nativePriceLow] as? Float
-        self.nativePriceHigh = indicativePrice[Constants.IndicativePrice.nativePriceHigh] as? Float
+        self.nativePrice = indicativePrice[Constants.IndicativePrice.nativePrice] as? Double
+        self.nativePriceLow = indicativePrice[Constants.IndicativePrice.nativePriceLow] as? Double
+        self.nativePriceHigh = indicativePrice[Constants.IndicativePrice.nativePriceHigh] as? Double
         self.nativeCurrency = indicativePrice[Constants.IndicativePrice.nativeCurrency] as? String
     }
 }

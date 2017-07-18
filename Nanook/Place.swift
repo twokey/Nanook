@@ -18,9 +18,9 @@ struct Place {
     let longName: String?
     let canonicalName: String?
     let code: String?
-    let latitude: Float
-    let longitude: Float
-    let radius: Float?
+    let latitude: Double
+    let longitude: Double
+    let radius: Double?
     let regionName: String?
     let regionCode: String?
     let countryName: String?
@@ -36,9 +36,9 @@ struct Place {
         self.longName = place[Constants.Rome2RioPlace.longName] as? String
         self.canonicalName = place[Constants.Rome2RioPlace.canonicalName] as? String
         self.code = place[Constants.Rome2RioPlace.code] as? String
-        self.latitude = place[Constants.Rome2RioPlace.latitude] as! Float
-        self.longitude = place[Constants.Rome2RioPlace.longitude] as! Float
-        self.radius = place[Constants.Rome2RioPlace.radius] as? Float
+        self.latitude = place[Constants.Rome2RioPlace.latitude] as! Double
+        self.longitude = place[Constants.Rome2RioPlace.longitude] as! Double
+        self.radius = place[Constants.Rome2RioPlace.radius] as? Double
         self.regionName = place[Constants.Rome2RioPlace.regionName] as? String
         self.regionCode = place[Constants.Rome2RioPlace.regionCode] as? String
         self.countryName = place[Constants.Rome2RioPlace.countryName] as? String

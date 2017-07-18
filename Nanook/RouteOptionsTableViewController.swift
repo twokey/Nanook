@@ -14,9 +14,10 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     // MARK: Properties
     
     let rome2RioClient = Rome2RioClient()
-    let origin = "Vancouver"
-    let destination = "Yekaterinburg"
     var searchResult = RoutesSearchResponse()
+    var originPlace: Place!
+    var destinationPlace: Place!
+    var destinationIndex: Int!
     
     
     // MARK: Outlets
@@ -29,12 +30,10 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        self.navigationController?.title = destinationPlace.shortName
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-
+        self.routesTableView.allowsMultipleSelection = true
+        
         // Exclude all surface segments
         let options = [Constants.Rome2RioSearchParameters.noRail : "true",
                        Constants.Rome2RioSearchParameters.noBus : "true",
@@ -47,7 +46,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
                        Constants.Rome2RioSearchParameters.noSpecial : "true",
                        ] as [String:AnyObject]
         
-        rome2RioClient.getRoutes(from: origin, to: destination, options: options) { (searchResult, error) in
+        rome2RioClient.getRoutes(from: originPlace.shortName, to: destinationPlace.shortName, options: options) { (searchResult, error) in
             
             // Was there an error during request?
             guard (error == nil) else {
@@ -83,21 +82,38 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
         }
     }
 
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "routeCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "airLegCell", for: indexPath) as! AirLegTableViewCell
 
         // Prepare data
-        //let route = searchResult.routes[indexPath.row]
+
         guard let airSegment = searchResult.airSegment() else {
             return cell
         }
-        
         let airLeg = airSegment.outbound[indexPath.row] as AirLeg
         
         // Configure the cell
-        cell.textLabel?.text = "Operating days: " + String(describing: airLeg.operatingDays)
-  //      cell.detailTextLabel?.text = route.segments
+        
+        let firstHop = airLeg.hops.first
+        let lastHop = airLeg.hops.last
+        
+        let departureTime = firstHop?.depTime
+        let arrivalTime = lastHop?.arrTime
+        let price: String
+        if let indicativePrices = airLeg.indicativePrices {
+            price = String(describing: indicativePrices.price) + indicativePrices.currency
+        } else {
+            price = "Not provided"
+        }
+        
+        cell.departureTime.text = departureTime
+        cell.arrivalTime.text = arrivalTime
+        cell.travelTime.text = airLeg.durationString()
+//        cell.price.text = price
+        cell.price.text = destinationPlace.shortName
+        
+        cell.routeGraph.airLeg = airLeg
+        cell.routeGraph.layoutSubviews()
 
         return cell
     }

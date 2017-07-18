@@ -13,6 +13,8 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     
     // MARK: Properties
     
+    var origin: Place!
+    var destinationsChosen = [Place]()
     var destinations = [Place]()
     let rome2RioClient = Rome2RioClient()
     
@@ -20,6 +22,11 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     // MARK: Outlets
     
     @IBOutlet weak var destinationTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var originLabel: UILabel!
+    @IBOutlet weak var destinationLabel1: UILabel!
+    @IBOutlet weak var destinationLabel2: UILabel!
+    @IBOutlet weak var destinationLabel3: UILabel!
     
     
     // MARK: Lifecycle
@@ -27,6 +34,8 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        originLabel.text = origin.longName
+        updateLabelsFor(chosenDestinations: destinationsChosen)
     }
 
     
@@ -57,17 +66,58 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     }
     
     
+    // MARK: - Table view delegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if destinationsChosen.count < 3 {
+            destinationsChosen.append(destinations[indexPath.row])
+            updateLabelsFor(chosenDestinations: destinationsChosen)
+        }
+        
+        searchBar.text = ""
+        destinations.removeAll()
+        destinationTableView.reloadData()
+    }
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
-    */
 
+        let routeOptionsPageViewController = segue.destination as! RouteOptionsPageViewController
+        routeOptionsPageViewController.destinations = destinationsChosen
+        routeOptionsPageViewController.origin = origin
+        
+    }
+    
+    
+    // MARK: Helpers
+    
+    func updateLabelsFor(chosenDestinations: [Place]) {
+
+        switch chosenDestinations.count {
+        case 1:
+            destinationLabel1.text = chosenDestinations[0].longName
+            destinationLabel2.text = ""
+            destinationLabel3.text = ""
+        case 2:
+            destinationLabel1.text = chosenDestinations[0].longName
+            destinationLabel2.text = chosenDestinations[1].longName
+            destinationLabel3.text = ""
+        case 3:
+            destinationLabel1.text = chosenDestinations[0].longName
+            destinationLabel2.text = chosenDestinations[1].longName
+            destinationLabel3.text = chosenDestinations[2].longName
+        default:
+            destinationLabel1.text = ""
+            destinationLabel2.text = ""
+            destinationLabel3.text = ""
+
+        }
+    }
 }
 
 extension DestinationLookUpTableViewController: UISearchBarDelegate {

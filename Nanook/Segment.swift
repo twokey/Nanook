@@ -17,10 +17,10 @@ class Segment {
     let depPlace: Int
     let arrPlace: Int
     let vehicle: Int
-    let distance: Float
-    let transitDuration: Float
-    let transferDuration: Float
-    let indicativePrices: [IndicativePrice]?
+    let distance: Double
+    let transitDuration: Double
+    let transferDuration: Double
+    let indicativePrices: IndicativePrice?
 
 
     // MARK: Initializers
@@ -30,9 +30,17 @@ class Segment {
         self.depPlace = segment[Constants.Segment.depPlace] as! Int
         self.arrPlace = segment[Constants.Segment.arrPlace] as! Int
         self.vehicle = segment[Constants.Segment.vehicle] as! Int
-        self.distance = segment[Constants.Segment.distance] as! Float
-        self.transitDuration = segment[Constants.Segment.transferDuration] as! Float
-        self.transferDuration = segment[Constants.Segment.transferDuration] as! Float
-        self.indicativePrices = segment[Constants.Segment.indicativePrices] as? [IndicativePrice]
+        self.distance = segment[Constants.Segment.distance] as! Double
+        self.transitDuration = segment[Constants.Segment.transferDuration] as! Double
+        self.transferDuration = segment[Constants.Segment.transferDuration] as! Double
+        
+        if let indicativePricesArray = segment[Constants.Segment.indicativePrices] as? [[String:AnyObject]] {
+            let indicativePrices = IndicativePrice(indicativePrice: indicativePricesArray.first!)
+            self.indicativePrices = indicativePrices
+        } else {
+            self.indicativePrices = nil
+        }
+
+//        self.indicativePrices = segment[Constants.Segment.indicativePrices] as? IndicativePrice
     }
 }
