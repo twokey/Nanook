@@ -14,7 +14,7 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     // MARK: Properties
     
     var origin: Place!
-    var destinationsChosen = [Place]()
+//    var destinationsChosen = [Place]()
     var destinations = [Place]()
     let rome2RioClient = Rome2RioClient()
     
@@ -24,9 +24,9 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     @IBOutlet weak var destinationTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var originLabel: UILabel!
-    @IBOutlet weak var destinationLabel1: UILabel!
-    @IBOutlet weak var destinationLabel2: UILabel!
-    @IBOutlet weak var destinationLabel3: UILabel!
+//    @IBOutlet weak var destinationLabel1: UILabel!
+//    @IBOutlet weak var destinationLabel2: UILabel!
+//    @IBOutlet weak var destinationLabel3: UILabel!
     
     
     // MARK: Lifecycle
@@ -35,7 +35,7 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
         super.viewDidLoad()
         
         originLabel.text = origin.longName
-        updateLabelsFor(chosenDestinations: destinationsChosen)
+ //       updateLabelsFor(chosenDestinations: destinationsChosen)
     }
 
     
@@ -70,14 +70,26 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if destinationsChosen.count < 3 {
-            destinationsChosen.append(destinations[indexPath.row])
-            updateLabelsFor(chosenDestinations: destinationsChosen)
-        }
+//        if destinationsChosen.count < 3 {
+//            destinationsChosen.append(destinations[indexPath.row])
+//            updateLabelsFor(chosenDestinations: destinationsChosen)
+//        }
         
-        searchBar.text = ""
-        destinations.removeAll()
-        destinationTableView.reloadData()
+        let routeOptionsTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "routesOptionsViewController") as! RouteOptionsTableViewController
+        
+  //      destinationLookUpTableViewController.origin = origins[indexPath.row]
+        
+//        let routeOptionsTableViewController = segue.destination as! RouteOptionsTableViewController
+        routeOptionsTableViewController.destinationPlace = destinations[indexPath.row]
+        routeOptionsTableViewController.originPlace = origin
+
+        
+        self.navigationController?.pushViewController(routeOptionsTableViewController, animated: true)
+
+        
+//        searchBar.text = ""
+//        destinations.removeAll()
+//        destinationTableView.reloadData()
     }
 
     
@@ -87,37 +99,37 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
 
-        let routeOptionsPageViewController = segue.destination as! RouteOptionsPageViewController
-        routeOptionsPageViewController.destinations = destinationsChosen
-        routeOptionsPageViewController.origin = origin
+//        let routeOptionsTableViewController = segue.destination as! RouteOptionsTableViewController
+//        routeOptionsTableViewController.destinationPlace = destinationChosen
+//        routeOptionsTableViewController.originPlace = origin
         
     }
     
     
     // MARK: Helpers
     
-    func updateLabelsFor(chosenDestinations: [Place]) {
-
-        switch chosenDestinations.count {
-        case 1:
-            destinationLabel1.text = chosenDestinations[0].longName
-            destinationLabel2.text = ""
-            destinationLabel3.text = ""
-        case 2:
-            destinationLabel1.text = chosenDestinations[0].longName
-            destinationLabel2.text = chosenDestinations[1].longName
-            destinationLabel3.text = ""
-        case 3:
-            destinationLabel1.text = chosenDestinations[0].longName
-            destinationLabel2.text = chosenDestinations[1].longName
-            destinationLabel3.text = chosenDestinations[2].longName
-        default:
-            destinationLabel1.text = ""
-            destinationLabel2.text = ""
-            destinationLabel3.text = ""
-
-        }
-    }
+//    func updateLabelsFor(chosenDestinations: [Place]) {
+//
+//        switch chosenDestinations.count {
+//        case 1:
+//            destinationLabel1.text = chosenDestinations[0].longName
+//            destinationLabel2.text = ""
+//            destinationLabel3.text = ""
+//        case 2:
+//            destinationLabel1.text = chosenDestinations[0].longName
+//            destinationLabel2.text = chosenDestinations[1].longName
+//            destinationLabel3.text = ""
+//        case 3:
+//            destinationLabel1.text = chosenDestinations[0].longName
+//            destinationLabel2.text = chosenDestinations[1].longName
+//            destinationLabel3.text = chosenDestinations[2].longName
+//        default:
+//            destinationLabel1.text = ""
+//            destinationLabel2.text = ""
+//            destinationLabel3.text = ""
+//
+//        }
+//    }
 }
 
 extension DestinationLookUpTableViewController: UISearchBarDelegate {

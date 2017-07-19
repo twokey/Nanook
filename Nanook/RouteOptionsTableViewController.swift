@@ -17,7 +17,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     var searchResult = RoutesSearchResponse()
     var originPlace: Place!
     var destinationPlace: Place!
-    var destinationIndex: Int!
+//    var destinationIndex: Int!
     
     
     // MARK: Outlets
@@ -31,8 +31,6 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
         super.viewDidLoad()
 
         self.navigationController?.title = destinationPlace.shortName
-
-        self.routesTableView.allowsMultipleSelection = true
         
         // Exclude all surface segments
         let options = [Constants.Rome2RioSearchParameters.noRail : "true",
@@ -101,16 +99,16 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
         let arrivalTime = lastHop?.arrTime
         let price: String
         if let indicativePrices = airLeg.indicativePrices {
-            price = String(describing: indicativePrices.price) + indicativePrices.currency
+            price = indicativePrices.currency + " " + String(describing: indicativePrices.priceLow) + " - " + String(describing: indicativePrices.priceHigh)
         } else {
             price = "Not provided"
         }
         
+        cell.operatingDays.text = airLeg.operatingDaysString()
         cell.departureTime.text = departureTime
         cell.arrivalTime.text = arrivalTime
         cell.travelTime.text = airLeg.durationString()
-//        cell.price.text = price
-        cell.price.text = destinationPlace.shortName
+        cell.price.text = price
         
         cell.routeGraph.airLeg = airLeg
         cell.routeGraph.layoutSubviews()

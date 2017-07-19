@@ -27,7 +27,7 @@ class RouteOptionsPageViewController: UIPageViewController {
         let routesOptionViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "routesOptionsViewController") as! RouteOptionsTableViewController
         routesOptionViewController.originPlace = origin
         routesOptionViewController.destinationPlace = destinations.first
-        routesOptionViewController.destinationIndex = 0
+//        routesOptionViewController.destinationIndex = 0
         setViewControllers([routesOptionViewController], direction: .forward, animated: true, completion: nil)
     }
 }
@@ -36,7 +36,7 @@ extension RouteOptionsPageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        let viewControllerIndex = (viewController as! RouteOptionsTableViewController).destinationIndex!
+//        let viewControllerIndex = (viewController as! RouteOptionsTableViewController).destinationIndex!
         let previousIndex = viewControllerIndex - 1
         
         guard previousIndex >= 0 else {
@@ -53,7 +53,7 @@ extension RouteOptionsPageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        let viewControllerIndex = (viewController as! RouteOptionsTableViewController).destinationIndex!
+//        let viewControllerIndex = (viewController as! RouteOptionsTableViewController).destinationIndex!
         let nextIndex = viewControllerIndex + 1
         
         guard nextIndex < destinations.count else {

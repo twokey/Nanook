@@ -15,6 +15,7 @@ class AirLegTableViewCell: UITableViewCell {
     @IBOutlet weak var travelTime: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var routeGraph: RouteGraphView!
+    @IBOutlet weak var operatingDays: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
