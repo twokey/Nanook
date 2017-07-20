@@ -14,6 +14,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     // MARK: Properties
     
     let rome2RioClient = Rome2RioClient()
+    let coreDataManager = CoreDataManager(modelName: "Nanook")
     var searchResult = RoutesSearchResponse()
     var originPlace: Place!
     var destinationPlace: Place!
@@ -29,8 +30,11 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationController?.title = destinationPlace.shortName
+        
+  //      coreDataManager.dropAllData()
+        
+        
+        self.navigationController?.title = "Available options"
         
         // Exclude all surface segments
         let options = [Constants.Rome2RioSearchParameters.noRail : "true",
@@ -95,21 +99,22 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
         let firstHop = airLeg.hops.first
         let lastHop = airLeg.hops.last
         
-        let departureTime = firstHop?.depTime
-        let arrivalTime = lastHop?.arrTime
         let price: String
         if let indicativePrices = airLeg.indicativePrices {
-            price = indicativePrices.currency + " " + String(describing: indicativePrices.priceLow) + " - " + String(describing: indicativePrices.priceHigh)
+            let priceLow = String(indicativePrices.priceLow ?? 0.0)
+            let priceHigh = String(indicativePrices.priceHigh ?? 0.0)
+            price = indicativePrices.currency + " " + priceLow + " - " + priceHigh
         } else {
             price = "Not provided"
         }
         
+        cell.origin.text = originPlace.shortName
+        cell.destination.text = destinationPlace.shortName
         cell.operatingDays.text = airLeg.operatingDaysString()
-        cell.departureTime.text = departureTime
-        cell.arrivalTime.text = arrivalTime
+        cell.departureTime.text = firstHop?.depTime
+        cell.arrivalTime.text = lastHop?.arrTime
         cell.travelTime.text = airLeg.durationString()
         cell.price.text = price
-        
         cell.routeGraph.airLeg = airLeg
         cell.routeGraph.layoutSubviews()
 
@@ -117,6 +122,62 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     }
     
 
+    // MARK: Actions
+    
+    @IBAction func saveRoute(_ sender: UIBarButtonItem) {
+        
+        if let indexPath = routesTableView.indexPathForSelectedRow {
+            // Prepare data
+            
+            guard let airSegment = searchResult.airSegment() else {
+                return
+            }
+            let airLeg = airSegment.outbound[indexPath.row] as AirLeg
+            
+            let firstHop = airLeg.hops.first
+            let lastHop = airLeg.hops.last
+            
+            let price: String
+            if let indicativePrices = airLeg.indicativePrices {
+                let priceLow = String(indicativePrices.priceLow ?? 0.0)
+                let priceHigh = String(indicativePrices.priceHigh ?? 0.0)
+                price = indicativePrices.currency + " " + priceLow + " - " + priceHigh
+            } else {
+                price = "Not provided"
+            }
+
+            let cell = routesTableView.cellForRow(at: indexPath) as! AirLegTableViewCell
+            let graphView = cell.routeGraph!
+            
+            UIGraphicsBeginImageContextWithOptions(graphView.bounds.size, graphView.isOpaque, 0.0)
+            graphView.drawHierarchy(in: graphView.bounds, afterScreenUpdates: false)
+            let snapshotImageFromView = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+
+            let dataForSnapshotImage = UIImagePNGRepresentation(snapshotImageFromView!) as NSData?
+       
+            // Save the data
+            let context = coreDataManager.mainManagedObjectContext
+
+
+            let route = RouteSummary(context: context)
+            route.origin = originPlace.shortName
+            route.destination = destinationPlace.shortName            
+            route.departureTime = firstHop?.depTime
+            route.arrivalTime = lastHop?.arrTime
+            route.operatingDays = airLeg.operatingDaysString()
+            route.travelTime = airLeg.durationString()
+            route.price = price
+            route.routeGraph = dataForSnapshotImage
+            coreDataManager.saveChanges()
+            
+        } else {
+            print("No row has been selected")
+        }
+        
+    }
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -152,14 +213,11 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //MARK: - Navigation
+ 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+     
+        let routeSummaryTableViewController = segue.destination as! RouteSummaryTableViewController
+        routeSummaryTableViewController.coreDataManager = self.coreDataManager
     }
-    */
-
 }

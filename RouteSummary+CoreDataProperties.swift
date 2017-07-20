@@ -2,7 +2,7 @@
 //  RouteSummary+CoreDataProperties.swift
 //  Nanook
 //
-//  Created by Kirill Kudymov on 2017-07-18.
+//  Created by Kirill Kudymov on 2017-07-19.
 //  Copyright © 2017 Kirill Kudymov. All rights reserved.
 //
 
@@ -22,5 +22,7 @@ extension RouteSummary {
     @NSManaged public var price: String?
     @NSManaged public var routeGraph: NSData?
     @NSManaged public var travelTime: String?
+    @NSManaged public var origin: String?
+    @NSManaged public var destination: String?
 
 }

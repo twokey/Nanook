@@ -70,26 +70,16 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        if destinationsChosen.count < 3 {
-//            destinationsChosen.append(destinations[indexPath.row])
-//            updateLabelsFor(chosenDestinations: destinationsChosen)
-//        }
-        
         let routeOptionsTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "routesOptionsViewController") as! RouteOptionsTableViewController
         
-  //      destinationLookUpTableViewController.origin = origins[indexPath.row]
-        
-//        let routeOptionsTableViewController = segue.destination as! RouteOptionsTableViewController
         routeOptionsTableViewController.destinationPlace = destinations[indexPath.row]
         routeOptionsTableViewController.originPlace = origin
 
+        searchBar.text = ""
+        destinations.removeAll()
+        destinationTableView.reloadData()
         
         self.navigationController?.pushViewController(routeOptionsTableViewController, animated: true)
-
-        
-//        searchBar.text = ""
-//        destinations.removeAll()
-//        destinationTableView.reloadData()
     }
 
     

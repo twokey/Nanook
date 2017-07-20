@@ -10,6 +10,8 @@ import UIKit
 
 class AirLegTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var origin: UILabel!
+    @IBOutlet weak var destination: UILabel!
     @IBOutlet weak var departureTime: UILabel!
     @IBOutlet weak var arrivalTime: UILabel!
     @IBOutlet weak var travelTime: UILabel!

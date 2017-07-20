@@ -17,8 +17,9 @@
 		9C533ABF1F04BF77009ABE0B /* Rome2RioConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C533ABE1F04BF77009ABE0B /* Rome2RioConvenience.swift */; };
 		9C533AC11F04BF9B009ABE0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C533AC01F04BF9B009ABE0B /* Constants.swift */; };
 		9C533AC31F04C8F3009ABE0B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C533AC21F04C8F3009ABE0B /* Place.swift */; };
-		9C61B7F31F1F00E700BC43A8 /* RouteSummary+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C61B7F21F1F00E700BC43A8 /* RouteSummary+CoreDataProperties.swift */; };
-		9C61B7F51F1F014200BC43A8 /* RouteSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C61B7F41F1F014200BC43A8 /* RouteSummary.swift */; };
+		9C61B7F51F1F014200BC43A8 /* RouteSummary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C61B7F41F1F014200BC43A8 /* RouteSummary+CoreDataClass.swift */; };
+		9C61B7F71F1F3B8900BC43A8 /* RouteSummary+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C61B7F61F1F3B8900BC43A8 /* RouteSummary+CoreDataProperties.swift */; };
+		9C61B7F91F1F3D0200BC43A8 /* RouteSummaryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C61B7F81F1F3D0200BC43A8 /* RouteSummaryTableViewController.swift */; };
 		9C6622561F11B4B300C19247 /* AirLegTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6622551F11B4B300C19247 /* AirLegTableViewCell.swift */; };
 		9C681E321F0DE3EC002DF36A /* AirHop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C681E311F0DE3EC002DF36A /* AirHop.swift */; };
 		9C681E341F0DE814002DF36A /* AirCodeshare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C681E331F0DE814002DF36A /* AirCodeshare.swift */; };
@@ -56,8 +57,9 @@
 		9C533ABE1F04BF77009ABE0B /* Rome2RioConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rome2RioConvenience.swift; sourceTree = "<group>"; };
 		9C533AC01F04BF9B009ABE0B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9C533AC21F04C8F3009ABE0B /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
-		9C61B7F21F1F00E700BC43A8 /* RouteSummary+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RouteSummary+CoreDataProperties.swift"; path = "../RouteSummary+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9C61B7F41F1F014200BC43A8 /* RouteSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteSummary.swift; sourceTree = "<group>"; };
+		9C61B7F41F1F014200BC43A8 /* RouteSummary+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RouteSummary+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9C61B7F61F1F3B8900BC43A8 /* RouteSummary+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RouteSummary+CoreDataProperties.swift"; path = "../RouteSummary+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9C61B7F81F1F3D0200BC43A8 /* RouteSummaryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteSummaryTableViewController.swift; sourceTree = "<group>"; };
 		9C6622551F11B4B300C19247 /* AirLegTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirLegTableViewCell.swift; sourceTree = "<group>"; };
 		9C681E311F0DE3EC002DF36A /* AirHop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirHop.swift; sourceTree = "<group>"; };
 		9C681E331F0DE814002DF36A /* AirCodeshare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirCodeshare.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				9C533AB41F035D52009ABE0B /* DestinationLookUpTableViewController.swift */,
 				9C9D3E311F0607A900429D78 /* RouteOptionsTableViewController.swift */,
 				9C533AA21F0357F1009ABE0B /* AppDelegate.swift */,
+				9C61B7F81F1F3D0200BC43A8 /* RouteSummaryTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -193,8 +196,8 @@
 			isa = PBXGroup;
 			children = (
 				9CA547B51F19B9410010E0C6 /* Nanook.xcdatamodeld */,
-				9C61B7F21F1F00E700BC43A8 /* RouteSummary+CoreDataProperties.swift */,
-				9C61B7F41F1F014200BC43A8 /* RouteSummary.swift */,
+				9C61B7F61F1F3B8900BC43A8 /* RouteSummary+CoreDataProperties.swift */,
+				9C61B7F41F1F014200BC43A8 /* RouteSummary+CoreDataClass.swift */,
 				9CA547B01F19A9400010E0C6 /* CoreDataManager.swift */,
 			);
 			name = CoreData;
@@ -282,9 +285,9 @@
 			files = (
 				9C9D3E3C1F0618E400429D78 /* Vehicle.swift in Sources */,
 				9CD9D9921F0C9EE7001F0551 /* AirSegment.swift in Sources */,
-				9C61B7F31F1F00E700BC43A8 /* RouteSummary+CoreDataProperties.swift in Sources */,
 				9CD9D9961F0CBA68001F0551 /* AirLeg.swift in Sources */,
 				9C533AB51F035D52009ABE0B /* DestinationLookUpTableViewController.swift in Sources */,
+				9C61B7F91F1F3D0200BC43A8 /* RouteSummaryTableViewController.swift in Sources */,
 				9C83BBB41F1DD270000BE20A /* RouteOption.swift in Sources */,
 				9C681E341F0DE814002DF36A /* AirCodeshare.swift in Sources */,
 				9C533ABF1F04BF77009ABE0B /* Rome2RioConvenience.swift in Sources */,
@@ -304,10 +307,11 @@
 				9C9D3E381F0618C500429D78 /* Aircraft.swift in Sources */,
 				9C681E3C1F0DF451002DF36A /* SurfaceStop.swift in Sources */,
 				9CD9D9941F0CAAE3001F0551 /* Alternative.swift in Sources */,
+				9C61B7F71F1F3B8900BC43A8 /* RouteSummary+CoreDataProperties.swift in Sources */,
 				9C6622561F11B4B300C19247 /* AirLegTableViewCell.swift in Sources */,
 				9C533AC31F04C8F3009ABE0B /* Place.swift in Sources */,
 				9C533AC11F04BF9B009ABE0B /* Constants.swift in Sources */,
-				9C61B7F51F1F014200BC43A8 /* RouteSummary.swift in Sources */,
+				9C61B7F51F1F014200BC43A8 /* RouteSummary+CoreDataClass.swift in Sources */,
 				9C9D3E3A1F0618D400429D78 /* Agency.swift in Sources */,
 				9CA547B11F19A9400010E0C6 /* CoreDataManager.swift in Sources */,
 				9CD9D9901F0C98D3001F0551 /* IndicativePrice.swift in Sources */,

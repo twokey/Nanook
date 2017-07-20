@@ -44,12 +44,15 @@ final class CoreDataManager {
         let fileManager = FileManager.default
         let storeName = "\(self.modelName).sqlite"
         
-        let documentsDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        guard let documentsDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            fatalError("Unable to reach the documents folder")
+        }
         
         let persistentStoreURL = documentsDirectoryURL.appendingPathComponent(storeName)
+        print(persistentStoreURL)
+        let options = [ NSMigratePersistentStoresAutomaticallyOption : true, NSInferMappingModelAutomaticallyOption : true ]
         
         do {
-            let options = [ NSMigratePersistentStoresAutomaticallyOption : true, NSInferMappingModelAutomaticallyOption : true ]
             try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType,
                                                               configurationName: nil,
                                                               at: persistentStoreURL,
@@ -128,4 +131,25 @@ final class CoreDataManager {
             }
         })
     }
+    
+    func dropAllData() {
+
+        if let entitesByName = persistentStoreCoordinator?.managedObjectModel.entities {
+            
+            for entityDescription in entitesByName {
+                deleteAllObjectsFor(entityDescription)
+            }
+        }
+    }
+    
+    func deleteAllObjectsFor(_ entityDescription: NSEntityDescription) {
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: entityDescription.name!)
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+        do {
+        try mainManagedObjectContext.execute(request)
+        } catch {
+            print("Cannot clean entity: \(entityDescription)")
+        }
+    }
+
 }
