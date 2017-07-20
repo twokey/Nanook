@@ -14,7 +14,6 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     // MARK: Properties
     
     var origin: Place!
-//    var destinationsChosen = [Place]()
     var destinations = [Place]()
     let rome2RioClient = Rome2RioClient()
     
@@ -24,9 +23,6 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     @IBOutlet weak var destinationTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var originLabel: UILabel!
-//    @IBOutlet weak var destinationLabel1: UILabel!
-//    @IBOutlet weak var destinationLabel2: UILabel!
-//    @IBOutlet weak var destinationLabel3: UILabel!
     
     
     // MARK: Lifecycle
@@ -35,11 +31,10 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
         super.viewDidLoad()
         
         originLabel.text = origin.longName
- //       updateLabelsFor(chosenDestinations: destinationsChosen)
     }
 
     
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
 
     func numberOfSections(in tableView: UITableView) -> Int {
 
@@ -66,7 +61,7 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     }
     
     
-    // MARK: - Table view delegate
+    // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -81,46 +76,10 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
         
         self.navigationController?.pushViewController(routeOptionsTableViewController, animated: true)
     }
-
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-
-//        let routeOptionsTableViewController = segue.destination as! RouteOptionsTableViewController
-//        routeOptionsTableViewController.destinationPlace = destinationChosen
-//        routeOptionsTableViewController.originPlace = origin
-        
-    }
-    
-    
-    // MARK: Helpers
-    
-//    func updateLabelsFor(chosenDestinations: [Place]) {
-//
-//        switch chosenDestinations.count {
-//        case 1:
-//            destinationLabel1.text = chosenDestinations[0].longName
-//            destinationLabel2.text = ""
-//            destinationLabel3.text = ""
-//        case 2:
-//            destinationLabel1.text = chosenDestinations[0].longName
-//            destinationLabel2.text = chosenDestinations[1].longName
-//            destinationLabel3.text = ""
-//        case 3:
-//            destinationLabel1.text = chosenDestinations[0].longName
-//            destinationLabel2.text = chosenDestinations[1].longName
-//            destinationLabel3.text = chosenDestinations[2].longName
-//        default:
-//            destinationLabel1.text = ""
-//            destinationLabel2.text = ""
-//            destinationLabel3.text = ""
-//
-//        }
-//    }
 }
+
+
+// MARK: - SearchBarDelegate
 
 extension DestinationLookUpTableViewController: UISearchBarDelegate {
     
@@ -128,7 +87,6 @@ extension DestinationLookUpTableViewController: UISearchBarDelegate {
         
         destinations.removeAll()
         
-        // TODO: Add delay to not overload API
         if searchText.characters.count >= 2 {
             rome2RioClient.getPlacesFor(searchText) { (places, error) in
                 

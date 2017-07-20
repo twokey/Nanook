@@ -15,6 +15,7 @@ final class CoreDataManager {
     // MARK: Properties
     
     private let modelName: String
+    static let sharedInstance = CoreDataManager(modelName: "Nanook")
     
     
     // MARK: - Core Data Stack

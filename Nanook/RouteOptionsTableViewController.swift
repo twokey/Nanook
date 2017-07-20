@@ -14,11 +14,9 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     // MARK: Properties
     
     let rome2RioClient = Rome2RioClient()
-    let coreDataManager = CoreDataManager(modelName: "Nanook")
     var searchResult = RoutesSearchResponse()
     var originPlace: Place!
     var destinationPlace: Place!
-//    var destinationIndex: Int!
     
     
     // MARK: Outlets
@@ -30,9 +28,6 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-  //      coreDataManager.dropAllData()
-        
         
         self.navigationController?.title = "Available options"
         
@@ -69,7 +64,8 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
         }
     }
 
-    // MARK: - Table view data source
+    
+    // MARK: - TableViewDataSource
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -157,8 +153,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
             let dataForSnapshotImage = UIImagePNGRepresentation(snapshotImageFromView!) as NSData?
        
             // Save the data
-            let context = coreDataManager.mainManagedObjectContext
-
+            let context = CoreDataManager.sharedInstance.mainManagedObjectContext
 
             let route = RouteSummary(context: context)
             route.origin = originPlace.shortName
@@ -169,55 +164,10 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
             route.travelTime = airLeg.durationString()
             route.price = price
             route.routeGraph = dataForSnapshotImage
-            coreDataManager.saveChanges()
+            CoreDataManager.sharedInstance.saveChanges()
             
         } else {
             print("No row has been selected")
         }
-        
-    }
-    
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    //MARK: - Navigation
- 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     
-        let routeSummaryTableViewController = segue.destination as! RouteSummaryTableViewController
-        routeSummaryTableViewController.coreDataManager = self.coreDataManager
     }
 }

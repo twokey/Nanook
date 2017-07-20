@@ -14,7 +14,8 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
     
     
     // MARK: Properties
-    var coreDataManager: CoreDataManager!
+
+    let context = CoreDataManager.sharedInstance.mainManagedObjectContext
 
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<RouteSummary> = {
         
@@ -25,7 +26,7 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
         fetchRequest.sortDescriptors = []
         
         // Create Fetched Results Controller
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.coreDataManager.mainManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
         
         // Configure Fetched Results Controller
         fetchedResultsController.delegate = self
@@ -60,6 +61,7 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
         routeSummaryTableView.reloadData()
     }
     
+    
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -67,7 +69,6 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(fetchedResultsController.sections![section].numberOfObjects)
         return fetchedResultsController.sections![section].numberOfObjects
     }
     
@@ -77,8 +78,6 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
         // Prepare data
         let cellInfo = fetchedResultsController.object(at: indexPath) 
         let routeGraphImage = UIImage(data: cellInfo.routeGraph! as Data)
-  //      let iv = UIImageView(image: routeGraphImage)
-        print("routeGraphImage: \(routeGraphImage)")
         
         // Configure the cell
         

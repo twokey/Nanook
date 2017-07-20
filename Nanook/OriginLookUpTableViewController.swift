@@ -20,6 +20,7 @@ class OriginLookUpTableViewController: UIViewController, UITableViewDelegate, UI
     // MARK: Outlets
     
     @IBOutlet weak var originTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     
     // MARK: Lifecycle
@@ -29,7 +30,7 @@ class OriginLookUpTableViewController: UIViewController, UITableViewDelegate, UI
     }
     
     
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -53,7 +54,7 @@ class OriginLookUpTableViewController: UIViewController, UITableViewDelegate, UI
     }
     
     
-    // MARK: - Table view delegate
+    // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -67,17 +68,23 @@ class OriginLookUpTableViewController: UIViewController, UITableViewDelegate, UI
     }
     
     
-    // MARK: - Navigation
+    // MARK: - Actions
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-//        if segue.destinationViewController == "destinationLookUpTableViewController" {
-//            
-//        }
+    @IBAction func viewSummary(_ sender: UIBarButtonItem) {
         
+        let routeSummaryTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "savedRoutesTableViewController") as! RouteSummaryTableViewController
+
+        searchBar.text = ""
+        origins.removeAll()
+        originTableView.reloadData()
+        
+        self.navigationController?.pushViewController(routeSummaryTableViewController, animated: true)
+
     }
 }
+
+
+// MARK: - UISearchBarDelegate
 
 extension OriginLookUpTableViewController: UISearchBarDelegate {
     
