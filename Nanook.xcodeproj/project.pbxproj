@@ -37,6 +37,7 @@
 		9C9D3E3E1F0618EE00429D78 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9D3E3D1F0618EE00429D78 /* Route.swift */; };
 		9CA547B11F19A9400010E0C6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA547B01F19A9400010E0C6 /* CoreDataManager.swift */; };
 		9CA547B71F19B9410010E0C6 /* Nanook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9CA547B51F19B9410010E0C6 /* Nanook.xcdatamodeld */; };
+		9CB68DCE1F205C4D00E430C8 /* AirLegSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB68DCD1F205C4D00E430C8 /* AirLegSummaryTableViewCell.swift */; };
 		9CD9D9901F0C98D3001F0551 /* IndicativePrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9D98F1F0C98D3001F0551 /* IndicativePrice.swift */; };
 		9CD9D9921F0C9EE7001F0551 /* AirSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9D9911F0C9EE7001F0551 /* AirSegment.swift */; };
 		9CD9D9941F0CAAE3001F0551 /* Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD9D9931F0CAAE3001F0551 /* Alternative.swift */; };
@@ -77,6 +78,7 @@
 		9C9D3E3D1F0618EE00429D78 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		9CA547B01F19A9400010E0C6 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9CA547B61F19B9410010E0C6 /* Nanook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Nanook.xcdatamodel; sourceTree = "<group>"; };
+		9CB68DCD1F205C4D00E430C8 /* AirLegSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirLegSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		9CD9D98F1F0C98D3001F0551 /* IndicativePrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicativePrice.swift; sourceTree = "<group>"; };
 		9CD9D9911F0C9EE7001F0551 /* AirSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirSegment.swift; sourceTree = "<group>"; };
 		9CD9D9931F0CAAE3001F0551 /* Alternative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alternative.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				9C6622551F11B4B300C19247 /* AirLegTableViewCell.swift */,
 				9CF521341F13358800EDD720 /* RouteGraphView.swift */,
+				9CB68DCD1F205C4D00E430C8 /* AirLegSummaryTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -148,10 +151,10 @@
 		9C533ABA1F04AFB1009ABE0B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				9C533AA21F0357F1009ABE0B /* AppDelegate.swift */,
 				9C472C8A1F15D1F4000ED920 /* OriginLookUpTableViewController.swift */,
 				9C533AB41F035D52009ABE0B /* DestinationLookUpTableViewController.swift */,
 				9C9D3E311F0607A900429D78 /* RouteOptionsTableViewController.swift */,
-				9C533AA21F0357F1009ABE0B /* AppDelegate.swift */,
 				9C61B7F81F1F3D0200BC43A8 /* RouteSummaryTableViewController.swift */,
 			);
 			name = Controller;
@@ -299,6 +302,7 @@
 				9C9D3E341F06187000429D78 /* RoutesSearchResponse.swift in Sources */,
 				9C681E361F0DEAAA002DF36A /* Segment.swift in Sources */,
 				9CA547B71F19B9410010E0C6 /* Nanook.xcdatamodeld in Sources */,
+				9CB68DCE1F205C4D00E430C8 /* AirLegSummaryTableViewCell.swift in Sources */,
 				9C533AA31F0357F1009ABE0B /* AppDelegate.swift in Sources */,
 				9CF521351F13358800EDD720 /* RouteGraphView.swift in Sources */,
 				9C681E381F0DF317002DF36A /* SurfaceSegment.swift in Sources */,

@@ -72,25 +72,25 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "airLegCell", for: indexPath) as! AirLegTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "airLegCell", for: indexPath) as! AirLegSummaryTableViewCell
         
-        print("Index Path= \(indexPath)")
         // Prepare data
         let cellInfo = fetchedResultsController.object(at: indexPath) 
-        print("Cell Info: \(cellInfo)")
-        print("Origin: \(cellInfo.origin)")
+        let routeGraphImage = UIImage(data: cellInfo.routeGraph! as Data)
+  //      let iv = UIImageView(image: routeGraphImage)
+        print("routeGraphImage: \(routeGraphImage)")
+        
         // Configure the cell
         
-//        cell.origin.text = cellInfo.origin
-        cell.origin.text = "Origin"
+        cell.origin.text = cellInfo.origin
         cell.destination.text = cellInfo.destination
         cell.operatingDays.text = cellInfo.operatingDays
         cell.departureTime.text = cellInfo.departureTime
         cell.arrivalTime.text = cellInfo.arrivalTime
         cell.travelTime.text = cellInfo.travelTime
         cell.price.text = cellInfo.price
-//        cell.routeGraph.airLeg = cellInfo.routeGraph
-//        cell.routeGraph.layoutSubviews()
+        cell.routeGraph.image = routeGraphImage
+
         
         return cell
     }

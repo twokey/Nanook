@@ -293,7 +293,7 @@
         <!--Saved Routes-->
         <scene sceneID="G4F-aD-ZuI">
             <objects>
-                <viewController storyboardIdentifier="savedRoutesTableViewController" id="4A9-66-Trf" customClass="RouteSummaryTableViewController" customModule="Nanook" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="savedRoutesTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="4A9-66-Trf" customClass="RouteSummaryTableViewController" customModule="Nanook" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Dvd-eU-rxz"/>
                         <viewControllerLayoutGuide type="bottom" id="DIL-H9-pr7"/>
@@ -307,7 +307,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="airLegCell" rowHeight="140" id="XGo-OS-IHS" customClass="AirLegTableViewCell" customModule="Nanook" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="airLegCell" rowHeight="140" id="XGo-OS-IHS" customClass="AirLegSummaryTableViewCell" customModule="Nanook" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XGo-OS-IHS" id="PG7-D8-xDb">
@@ -395,13 +395,22 @@
                                                     <rect key="frame" x="179" y="111" width="16" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dl7-qd-uKO">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Bd-Qm-m13">
                                                     <rect key="frame" x="0.0" y="48" width="375" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </view>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="arrivalTime" destination="l9n-CW-S1p" id="Qi5-3y-sxm"/>
+                                            <outlet property="departureTime" destination="ob6-lO-soE" id="xmk-nu-R4c"/>
+                                            <outlet property="destination" destination="yNS-WQ-xyu" id="jO8-GS-dcf"/>
+                                            <outlet property="operatingDays" destination="2My-4u-WK9" id="Arc-do-fYP"/>
+                                            <outlet property="origin" destination="6Sx-Pm-YB5" id="oGM-eS-fIG"/>
+                                            <outlet property="price" destination="Zws-eY-ONe" id="kJY-9o-wpn"/>
+                                            <outlet property="routeGraph" destination="4Bd-Qm-m13" id="JnF-ag-n3W"/>
+                                            <outlet property="travelTime" destination="IxV-YU-37g" id="tTL-p9-BNS"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
