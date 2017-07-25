@@ -22,6 +22,8 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     // MARK: Outlets
     
     @IBOutlet weak var routesTableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     
     // MARK: Lifecycle
@@ -30,6 +32,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
         super.viewDidLoad()
         
         self.navigationController?.title = "Available options"
+        saveButton.isEnabled = false
         
         // Exclude all surface segments
         let options = [Constants.Rome2RioSearchParameters.noRail : "true",
@@ -49,6 +52,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
             guard (error == nil) else {
                 print(error!)
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
                     AllertViewController.showAlertWithTitle("Connection", message: "Connection has been lost. Please try again.")
                 }
                 return
@@ -57,6 +61,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
             guard let searchResult = searchResult else {
                 print("Search results cannot be unwrapped")
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
                     AllertViewController.showAlertWithTitle("Request Result", message: "No search results were reseived. Please try again")
                 }
                 return
@@ -64,6 +69,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
 
             guard let _ = searchResult.airSegment() else {
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
                     AllertViewController.showAlertWithTitle("Request Result", message: "No search results were reseived. Please try again")
                 }
                 return
@@ -72,6 +78,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
             self.searchResult = searchResult
             
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
                 self.routesTableView.reloadData()
             }
         }
@@ -79,10 +86,6 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
 
     
     // MARK: - TableViewDataSource
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -131,6 +134,24 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     }
     
 
+    // MARK: TableViewDelegate
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if (tableView.cellForRow(at: indexPath)?.isSelected)! {
+            saveButton.isEnabled = false
+            tableView.cellForRow(at: indexPath)?.isSelected = false
+            return nil
+        } else {
+            return indexPath
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        saveButton.isEnabled = true
+    }
+    
+    
     // MARK: Actions
     
     @IBAction func saveRoute(_ sender: UIBarButtonItem) {
