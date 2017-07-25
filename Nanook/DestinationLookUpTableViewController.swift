@@ -90,9 +90,21 @@ extension DestinationLookUpTableViewController: UISearchBarDelegate {
         if searchText.characters.count >= 2 {
             rome2RioClient.getPlacesFor(searchText) { (places, error) in
                 
-                self.destinations.append(contentsOf: places!)
-                DispatchQueue.main.async {
-                    self.destinationTableView.reloadData()
+                guard error == nil else {
+                    DispatchQueue.main.async {
+                        AllertViewController.showAlertWithTitle("Connection", message: "Connection has been lost. Please try again.")
+                    }
+                    return
+                        
+                }
+                
+                if let places = places {
+                    self.destinations.append(contentsOf: places)
+                    DispatchQueue.main.async {
+                        self.destinationTableView.reloadData()
+                    }
+                } else {
+                    AllertViewController.showAlertWithTitle("Request Result", message: "No search results were reseived. Please try again")
                 }
             }
         }

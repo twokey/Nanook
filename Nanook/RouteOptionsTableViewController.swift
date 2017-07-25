@@ -48,14 +48,27 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
             // Was there an error during request?
             guard (error == nil) else {
                 print(error!)
+                DispatchQueue.main.async {
+                    AllertViewController.showAlertWithTitle("Connection", message: "Connection has been lost. Please try again.")
+                }
                 return
             }
             
             guard let searchResult = searchResult else {
                 print("Search results cannot be unwrapped")
+                DispatchQueue.main.async {
+                    AllertViewController.showAlertWithTitle("Request Result", message: "No search results were reseived. Please try again")
+                }
                 return
             }
-            
+
+            guard let _ = searchResult.airSegment() else {
+                DispatchQueue.main.async {
+                    AllertViewController.showAlertWithTitle("Request Result", message: "No search results were reseived. Please try again")
+                }
+                return
+            }
+
             self.searchResult = searchResult
             
             DispatchQueue.main.async {
@@ -128,6 +141,7 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
             guard let airSegment = searchResult.airSegment() else {
                 return
             }
+            
             let airLeg = airSegment.outbound[indexPath.row] as AirLeg
             
             let firstHop = airLeg.hops.first
