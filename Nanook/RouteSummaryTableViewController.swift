@@ -15,10 +15,11 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
     
     // MARK: Properties
 
+    var selectedRow: IndexPath?
     let context = CoreDataManager.sharedInstance.mainManagedObjectContext
 
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<RouteSummary> = {
-        
+    
         // Create Fetch Request
         let fetchRequest: NSFetchRequest<RouteSummary> = RouteSummary.fetchRequest()
         
@@ -46,12 +47,14 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
     // MARK: Outlets
     
     @IBOutlet weak var routeSummaryTableView: UITableView!
-    
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        deleteButton.isEnabled = false
         
         do {
             try fetchedResultsController.performFetch()
@@ -76,7 +79,9 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "airLegCell", for: indexPath) as! AirLegSummaryTableViewCell
         
         // Prepare data
-        let cellInfo = fetchedResultsController.object(at: indexPath) 
+        print("Index Path: \(indexPath)")
+        let cellInfo = fetchedResultsController.object(at: indexPath)
+        print("Cell Info: \(cellInfo)")
         let routeGraphImage = UIImage(data: cellInfo.routeGraph! as Data)
         
         // Configure the cell
@@ -90,8 +95,48 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
         cell.price.text = cellInfo.price
         cell.routeGraph.image = routeGraphImage
 
-        
         return cell
     }
-
+    
+    
+    // MARK: TableViewDelegate
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if (tableView.cellForRow(at: indexPath)?.isSelected)! {
+            deleteButton.isEnabled = false
+            selectedRow = nil
+            tableView.cellForRow(at: indexPath)?.isSelected = false
+            return nil
+        } else {
+            return indexPath
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        deleteButton.isEnabled = true
+        selectedRow = indexPath
+    }
+    
+    
+    // MARK: Actions
+    
+    @IBAction func deleteRoute(_ sender: UIBarButtonItem) {
+        if let indexPath = selectedRow {
+            print("Index Path: \(indexPath)")
+            let routeToDelete = fetchedResultsController.object(at: indexPath)
+            print("Route to delete: \(routeToDelete)")
+            context.delete(routeToDelete)
+            CoreDataManager.sharedInstance.saveChanges()
+            
+            do {
+                try fetchedResultsController.performFetch()
+            } catch let error as NSError {
+                print("Error performing initial fetch: \(error)")
+            }
+            routeSummaryTableView.reloadData()
+            
+          //  routeSummaryTableView.reloadData()
+        }
+    }
 }
