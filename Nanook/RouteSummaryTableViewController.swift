@@ -79,13 +79,10 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "airLegCell", for: indexPath) as! AirLegSummaryTableViewCell
         
         // Prepare data
-        print("Index Path: \(indexPath)")
         let cellInfo = fetchedResultsController.object(at: indexPath)
-        print("Cell Info: \(cellInfo)")
         let routeGraphImage = UIImage(data: cellInfo.routeGraph! as Data)
         
         // Configure the cell
-        
         cell.origin.text = cellInfo.origin
         cell.destination.text = cellInfo.destination
         cell.operatingDays.text = cellInfo.operatingDays
@@ -123,9 +120,8 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
     
     @IBAction func deleteRoute(_ sender: UIBarButtonItem) {
         if let indexPath = selectedRow {
-            print("Index Path: \(indexPath)")
+
             let routeToDelete = fetchedResultsController.object(at: indexPath)
-            print("Route to delete: \(routeToDelete)")
             context.delete(routeToDelete)
             CoreDataManager.sharedInstance.saveChanges()
             
@@ -135,8 +131,6 @@ class RouteSummaryTableViewController: UIViewController, UITableViewDelegate, UI
                 print("Error performing initial fetch: \(error)")
             }
             routeSummaryTableView.reloadData()
-            
-          //  routeSummaryTableView.reloadData()
         }
     }
 }

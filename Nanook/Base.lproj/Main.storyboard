@@ -112,10 +112,15 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="she-yX-DJq">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="2TE-4b-UGK" firstAttribute="top" secondItem="9k7-P4-zqf" secondAttribute="bottom" constant="8" id="6Cn-YN-iMo"/>
+                            <constraint firstItem="she-yX-DJq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CaR-gS-yN0"/>
+                            <constraint firstItem="she-yX-DJq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="DV5-ZM-4Tj"/>
                             <constraint firstItem="9k7-P4-zqf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="hlZ-ml-sGQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9k7-P4-zqf" secondAttribute="trailing" id="lnX-Qc-BL4"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2TE-4b-UGK" secondAttribute="bottom" id="pXy-u2-xWe"/>
@@ -126,6 +131,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Destination" id="jDB-iT-wWX"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="she-yX-DJq" id="qpB-te-il3"/>
                         <outlet property="destinationTableView" destination="1j1-PH-cxJ" id="CkU-9a-VYg"/>
                         <outlet property="originLabel" destination="17I-oq-hve" id="5et-Aw-ymc"/>
                         <outlet property="searchBar" destination="UKf-OT-wRP" id="AkD-9Z-TVh"/>
@@ -594,12 +600,17 @@
                                     </tableView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="niv-be-q1e">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="niv-be-q1e" firstAttribute="centerX" secondItem="PXb-jP-k6j" secondAttribute="centerX" id="BSV-4V-PcL"/>
                             <constraint firstItem="Bar-it-W46" firstAttribute="leading" secondItem="PXb-jP-k6j" secondAttribute="leading" id="FP7-oe-dGs"/>
                             <constraint firstAttribute="trailing" secondItem="Bar-it-W46" secondAttribute="trailing" id="FxQ-cK-qf9"/>
                             <constraint firstItem="Bar-it-W46" firstAttribute="top" secondItem="PXb-jP-k6j" secondAttribute="top" constant="63" id="K7E-qf-1EJ"/>
+                            <constraint firstItem="niv-be-q1e" firstAttribute="centerY" secondItem="PXb-jP-k6j" secondAttribute="centerY" id="aMD-hf-B5W"/>
                             <constraint firstItem="l44-qj-pNP" firstAttribute="top" secondItem="Bar-it-W46" secondAttribute="bottom" id="r9H-Hf-Gyg"/>
                         </constraints>
                     </view>
@@ -611,6 +622,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="niv-be-q1e" id="6Rl-tN-9mP"/>
                         <outlet property="originTableView" destination="15Y-7i-scO" id="CKP-rI-Na7"/>
                         <outlet property="searchBar" destination="G29-5r-vzd" id="G3S-W2-7ic"/>
                     </connections>

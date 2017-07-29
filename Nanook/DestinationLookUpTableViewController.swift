@@ -23,6 +23,7 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
     @IBOutlet weak var destinationTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var originLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     // MARK: Lifecycle
@@ -31,6 +32,7 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
         super.viewDidLoad()
         
         originLabel.text = origin.longName
+        activityIndicator.stopAnimating()
     }
 
     
@@ -70,6 +72,7 @@ class DestinationLookUpTableViewController: UIViewController, UITableViewDataSou
         routeOptionsTableViewController.destinationPlace = destinations[indexPath.row]
         routeOptionsTableViewController.originPlace = origin
 
+        // Clean search bar and search results
         searchBar.text = ""
         destinations.removeAll()
         destinationTableView.reloadData()
@@ -86,12 +89,14 @@ extension DestinationLookUpTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         destinations.removeAll()
+        activityIndicator.startAnimating()
         
         if searchText.characters.count >= 2 {
             rome2RioClient.getPlacesFor(searchText) { (places, error) in
                 
                 guard error == nil else {
                     DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
                         AllertViewController.showAlertWithTitle("Connection", message: "Connection has been lost. Please try again.")
                     }
                     return
@@ -101,6 +106,7 @@ extension DestinationLookUpTableViewController: UISearchBarDelegate {
                 if let places = places {
                     self.destinations.append(contentsOf: places)
                     DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
                         self.destinationTableView.reloadData()
                     }
                 } else {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -156,9 +157,11 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
     
     @IBAction func saveRoute(_ sender: UIBarButtonItem) {
         
+        
+        
         if let indexPath = routesTableView.indexPathForSelectedRow {
-            // Prepare data
             
+            // Prepare data
             guard let airSegment = searchResult.airSegment() else {
                 return
             }
@@ -187,22 +190,40 @@ class RouteOptionsTableViewController: UIViewController, UITableViewDataSource, 
 
             let dataForSnapshotImage = UIImagePNGRepresentation(snapshotImageFromView!) as NSData?
        
-            // Save the data
             let context = CoreDataManager.sharedInstance.mainManagedObjectContext
-
-            let route = RouteSummary(context: context)
-            route.origin = originPlace.shortName
-            route.destination = destinationPlace.shortName            
-            route.departureTime = firstHop?.depTime
-            route.arrivalTime = lastHop?.arrTime
-            route.operatingDays = airLeg.operatingDaysString()
-            route.travelTime = airLeg.durationString()
-            route.price = price
-            route.routeGraph = dataForSnapshotImage
-            CoreDataManager.sharedInstance.saveChanges()
             
+            let fetchRequest: NSFetchRequest<RouteSummary> = RouteSummary.fetchRequest()
+            let parameterArray = [self.originPlace.shortName, self.destinationPlace.shortName, airLeg.durationString()]
+            fetchRequest.predicate = NSPredicate(format: "origin = %@ AND destination = %@ AND travelTime = %@", argumentArray: parameterArray)
+            
+            do {
+                let savedRoute = try context.fetch(fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+                
+                // we shouldn't have any duplicates in Core Data
+                if savedRoute.count == 0 {
+                    // Save the data
+                    
+                    let route = RouteSummary(context: context)
+                    route.origin = originPlace.shortName
+                    route.destination = destinationPlace.shortName
+                    route.departureTime = firstHop?.depTime
+                    route.arrivalTime = lastHop?.arrTime
+                    route.operatingDays = airLeg.operatingDaysString()
+                    route.travelTime = airLeg.durationString()
+                    route.price = price
+                    route.routeGraph = dataForSnapshotImage
+                    CoreDataManager.sharedInstance.saveChanges()
+                    AllertViewController.showAlertWithTitle("Saved Routes", message: "The route has been saved")
+                } else {
+                    AllertViewController.showAlertWithTitle("Saved Routes", message: "This route has been saved before")
+                }
+                
+            } catch {
+                AllertViewController.showAlertWithTitle("Memory", message: "Cannot get access to device's memory")
+            }
+
         } else {
-            print("No row has been selected")
+            AllertViewController.showAlertWithTitle("Routes", message: "No row has been selected")
         }
     }
 }

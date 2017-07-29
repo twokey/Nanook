@@ -21,12 +21,15 @@ class OriginLookUpTableViewController: UIViewController, UITableViewDelegate, UI
     
     @IBOutlet weak var originTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityIndicator.stopAnimating()
     }
     
     
@@ -63,6 +66,11 @@ class OriginLookUpTableViewController: UIViewController, UITableViewDelegate, UI
         
         destinationLookUpTableViewController.origin = origins[indexPath.row]
         
+        // Clean search bar and search results
+        searchBar.text = ""
+        origins.removeAll()
+        originTableView.reloadData()
+        
         self.navigationController?.pushViewController(destinationLookUpTableViewController, animated: true)
 
     }
@@ -74,6 +82,7 @@ class OriginLookUpTableViewController: UIViewController, UITableViewDelegate, UI
         
         let routeSummaryTableViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "savedRoutesTableViewController") as! RouteSummaryTableViewController
 
+        // Clean search bar and search results
         searchBar.text = ""
         origins.removeAll()
         originTableView.reloadData()
@@ -91,12 +100,14 @@ extension OriginLookUpTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         origins.removeAll()
+        activityIndicator.startAnimating()
         
         if searchText.characters.count >= 2 {
             rome2RioClient.getPlacesFor(searchText) { (places, error) in
-
+                
                 guard error == nil else {
                     DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
                         AllertViewController.showAlertWithTitle("Connection", message: "Connection has been lost. Please try again.")
                     }
                     return
@@ -106,6 +117,7 @@ extension OriginLookUpTableViewController: UISearchBarDelegate {
                 if let places = places {
                     self.origins.append(contentsOf: places)
                     DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
                         self.originTableView.reloadData()
                     }
                 } else {
